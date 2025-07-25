@@ -15,10 +15,3 @@ Route::get("/position-status/{position}", PositionUpdateStatusController::class)
 Route::get("/status/success", function(){
     return "update been applied!";
 });
-
-Route::get('/notification', function () {
-    $user = User::first();
-    $position = Position::first();
-    return (new NewPositionNotification($position))
-        ->toMail($user);
-});
