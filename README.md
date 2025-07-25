@@ -2,7 +2,7 @@
 
 1. **Clone the repository**
    ```sh
-   git clone <your-repo-url>
+   git clone https://github.com/jbdev21/board.git
    ```
 
 2. **Install PHP dependencies**
