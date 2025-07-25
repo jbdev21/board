@@ -14,6 +14,8 @@ return [
     |
     */
 
+    'external_source_endpoint' => env("EXTERNAL_SOURCE_ENDPOINT", 'https://mrge-group-gmbh.jobs.personio.de/xml'),
+
     'postmark' => [
         'token' => env('POSTMARK_TOKEN'),
     ],

@@ -12,6 +12,11 @@
 
         <!-- Styles / Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
+        <style>
+            h1{
+                font-weight:bold;
+            }
+        </style>
     </head>
     <body>
         <div class="mx-auto w-1/2 py-5">

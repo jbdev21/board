@@ -7,8 +7,8 @@ enum ScheduleEnum: string
 {
     use HasBasicEnumTraits;
 
-    case FULL_TIME = 'full_time';
-    case PART_TIME = 'part_time';
+    case FULL_TIME = 'full-time';
+    case PART_TIME = 'part-time';
     case FLEXIBLE = 'flexible';
     case SHIFT = 'shift';
     case WEEKEND = 'weekend';

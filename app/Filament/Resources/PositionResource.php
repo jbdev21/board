@@ -34,34 +34,34 @@ class PositionResource extends Resource
         return $form
             ->schema([
                 Forms\Components\Fieldset::make('Primary')
-                ->schema([
-                    Forms\Components\TextInput::make('title')->required(),
-                    Forms\Components\TextInput::make('company')->required(),
-                    Forms\Components\TextInput::make('office')->required(),
-                    Forms\Components\TextInput::make('keywords')->label("Job Keywords ")->hint('seperated with commas'),
-                ]),
+                    ->schema([
+                        Forms\Components\TextInput::make('title')->required(),
+                        Forms\Components\TextInput::make('company')->required(),
+                        Forms\Components\TextInput::make('office')->required(),
+                        Forms\Components\TextInput::make('keywords')->label("Job Keywords ")->hint('seperated with commas'),
+                    ]),
                 Forms\Components\Fieldset::make('Employment')
-                ->schema([
-                    Forms\Components\Select::make('employment_type')->options(EmploymentTypeEnum::associativeValues())->label("Type")->required(),
-                    Forms\Components\Select::make('schedule')->options(ScheduleEnum::associativeValues())->required()->label("Work Schedule"),
-                    Forms\Components\Checkbox::make('is_remote'),
-                ]),
+                    ->schema([
+                        Forms\Components\Select::make('employment_type')->options(EmploymentTypeEnum::associativeValues())->label("Type")->required(),
+                        Forms\Components\Select::make('schedule')->options(ScheduleEnum::associativeValues())->required()->label("Work Schedule"),
+                        Forms\Components\Checkbox::make('is_remote'),
+                    ]),
                 Forms\Components\Fieldset::make('Seniority')
-                ->schema([
-                    Forms\Components\Select::make('seniority')->options(SeniorityEnum::associativeValues())->label('Level')->required(),
-                    Forms\Components\TextInput::make('years_of_experience'),
-                ]),
-                
+                    ->schema([
+                        Forms\Components\Select::make('seniority')->options(SeniorityEnum::associativeValues())->label('Level')->required(),
+                        Forms\Components\TextInput::make('years_of_experience'),
+                    ]),
+
                 Forms\Components\Fieldset::make('Salary')
-                ->schema([
-                    Forms\Components\TextInput::make('salary_min')->numeric()->label("Min"),
-                    Forms\Components\TextInput::make('salary_max')->numeric()->label("Max"),
-                    Forms\Components\Select::make('salary_currency_code')->options(CurrencyCodeEnum::associativeValues())->label("Currency"),
-                    Forms\Components\Select::make('salary_type')->options(SalaryTypeEnum::associativeValues())->label("Payment Interval"),
-                ]),
+                    ->schema([
+                        Forms\Components\TextInput::make('salary_min')->numeric()->label("Min"),
+                        Forms\Components\TextInput::make('salary_max')->numeric()->label("Max"),
+                        Forms\Components\Select::make('salary_currency_code')->options(CurrencyCodeEnum::associativeValues())->label("Currency"),
+                        Forms\Components\Select::make('salary_type')->options(SalaryTypeEnum::associativeValues())->label("Payment Interval"),
+                    ]),
                 Select::make('status')
-                            ->options(PositionStatusEnum::associativeValues())
-                            ->visible(Auth::user()->is_moderator)->required(),
+                    ->options(PositionStatusEnum::associativeValues())
+                    ->visible(Auth::user()->is_moderator)->required(),
                 Forms\Components\RichEditor::make('description')->columnSpanFull()->required(),
             ]);
     }
@@ -70,10 +70,10 @@ class PositionResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('status')->formatStateUsing(fn ($state) => $state->label()),
-                Tables\Columns\TextColumn::make('title'),
-                Tables\Columns\TextColumn::make('company'),
-                Tables\Columns\TextColumn::make('employment_type')->formatStateUsing(fn ($state) => $state->label()),
+                Tables\Columns\TextColumn::make('status')->formatStateUsing(fn($state) => $state->label()),
+                Tables\Columns\TextColumn::make('title')->searchable(),
+                Tables\Columns\TextColumn::make('company')->searchable(),
+                Tables\Columns\TextColumn::make('employment_type')->formatStateUsing(fn($state) => $state->label()),
             ])
             ->filters([
                 SelectFilter::make('status')

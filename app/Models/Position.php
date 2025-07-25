@@ -11,6 +11,8 @@ use App\Enums\SeniorityEnum;
 use App\Notifications\NewPositionNotification;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Notification;
 
 class Position extends Model
@@ -27,19 +29,29 @@ class Position extends Model
         'salary_currency_code' => CurrencyCodeEnum::class,
         'schedule' => ScheduleEnum::class,
         'status' => PositionStatusEnum::class,
+        'external_created_at' => 'datetime'
     ];
 
      protected static function boot()
     {
         parent::boot(); 
         static::created(function ($position) {
-            if($position->status == PositionStatusEnum::PENDING){
-                $moderators = User::where("is_moderator", 1)->get();
-                Notification::send($moderators, new NewPositionNotification($position));
+            if(Auth::check()){
+                $position->update(['user_id' => Auth::user()->id]);
             }
+            if($position->user){
+                if($position->user->had_posted == false){
+                    $moderators = User::where("is_moderator", 1)->get();
+                    $position->update(['status' => PositionStatusEnum::PENDING]);
+                    Notification::send($moderators, new NewPositionNotification($position));
+                    $position->user()->update(['had_posted' => true]);
+                }
+            }   
         });
     }
 
-
+    function user(){
+        return $this->belongsTo(User::class);
+    }
 
 }

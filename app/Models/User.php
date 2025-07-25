@@ -20,6 +20,7 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'is_moderator',
+        'had_posted',
         'email',
         'password',
     ];
@@ -45,5 +46,9 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public function positions(){
+        return $this->belongsTo(User::class);
     }
 }
