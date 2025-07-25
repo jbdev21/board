@@ -1,10 +1,13 @@
 <?php
 
 namespace App\Enums;
-use Illuminate\Support\Str;
+
+use App\Traits\HasBasicEnumTraits;
 
 enum EmploymentTypeEnum: string
 {
+    use HasBasicEnumTraits;
+
     case PERMANENT = 'permanent';
     case FIXED_TERM = 'fixed_term';
     case INTERN = 'intern';
@@ -39,21 +42,6 @@ enum EmploymentTypeEnum: string
             self::VOLUNTEER->value => 'Volunteer',
             self::TRAINEE->value => 'Trainee',
         ];
-    }
-
-    /**
-     * Get the values of the enum.
-     *
-     * @return array
-     */
-    public static function associativeValues(): array
-    {
-        $data = [];
-        foreach(self::values() as $value){
-            $data[$value] = self::labels()[$value];
-        }
-
-        return $data;
     }
 
 }

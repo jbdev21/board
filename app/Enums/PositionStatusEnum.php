@@ -1,8 +1,12 @@
 <?php 
 namespace App\Enums;
-use Illuminate\Support\Str;
+
+use App\Traits\HasBasicEnumTraits;
 
 enum PositionStatusEnum : string {
+
+    use HasBasicEnumTraits;
+
     case PENDING = 'pending';
     case PUBLISH = 'publish';
     case SPAM = 'spam';
@@ -26,21 +30,6 @@ enum PositionStatusEnum : string {
             self::SPAM->value => 'Spam',
             self::CLOSED->value => 'Closed',
         ];
-    }
-
-    /**
-     * Get the values of the enum.
-     *
-     * @return array
-     */
-    public static function associativeValues(): array
-    {
-        $data = [];
-        foreach(self::values() as $value){
-            $data[$value] = Str::ucfirst($value);
-        }
-
-        return $data;
     }
 
 }

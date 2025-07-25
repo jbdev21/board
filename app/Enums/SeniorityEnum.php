@@ -1,10 +1,13 @@
 <?php
 
 namespace App\Enums;
-use Illuminate\Support\Str;
+
+use App\Traits\HasBasicEnumTraits;
 
 enum SeniorityEnum: string
 {
+    use HasBasicEnumTraits;
+
     case INTERN = 'intern';
     case TRAINEE = 'trainee';
     case STUDENT = 'student';
@@ -39,21 +42,6 @@ enum SeniorityEnum: string
             self::VP->value => 'Vice President',
             self::FOUNDER->value => 'Founder',
         ];
-    }
-
-    /**
-     * Get the values of the enum.
-     *
-     * @return array
-     */
-    public static function associativeValues(): array
-    {
-        $data = [];
-        foreach(self::values() as $value){
-            $data[$value] = self::labels()[$value];
-        }
-
-        return $data;
     }
 
 }

@@ -7,11 +7,8 @@ use App\Models\User;
 use App\Notifications\NewPositionNotification;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
-Route::get("/posting", [PostingController::class, 'index']);
+Route::get('/', [PostingController::class, 'index'])->name("home");
+Route::get('/job/{position}', [PostingController::class, 'show'])->name("job");
 
 Route::get("/position-status/{position}", PositionUpdateStatusController::class)->name("position-update-status-link");
 

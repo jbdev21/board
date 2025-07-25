@@ -1,10 +1,13 @@
 <?php
 
 namespace App\Enums;
-use Illuminate\Support\Str;
+
+use App\Traits\HasBasicEnumTraits;
 
 enum CurrencyCodeEnum: string
 {
+    use HasBasicEnumTraits;
+
     case USD = 'USD'; // US Dollar
     case EUR = 'EUR'; // Euro
     case GBP = 'GBP'; // British Pound
@@ -55,22 +58,6 @@ enum CurrencyCodeEnum: string
             self::MXN->value => 'Mexican Peso',
             self::RUB->value => 'Russian Ruble',
         ];
-    }
-
-
-    /**
-     * Get the values of the enum.
-     *
-     * @return array
-     */
-    public static function associativeValues(): array
-    {
-        $data = [];
-        foreach(self::values() as $value){
-            $data[$value] = self::labels()[$value];
-        }
-
-        return $data;
     }
 
 }

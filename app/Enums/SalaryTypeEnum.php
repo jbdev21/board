@@ -1,10 +1,13 @@
 <?php
 
 namespace App\Enums;
-use Illuminate\Support\Str;
+
+use App\Traits\HasBasicEnumTraits;
 
 enum SalaryTypeEnum: string
 {
+    use HasBasicEnumTraits;
+
     case HOURLY = 'hourly';
     case DAILY = 'daily';
     case WEEKLY = 'weekly';
@@ -17,6 +20,11 @@ enum SalaryTypeEnum: string
     public static function values(): array
     {
         return array_column(self::cases(), 'value');
+    }
+
+    public function label(): string
+    {
+        return self::labels()[$this->value];
     }
 
     public static function labels(): array
@@ -32,20 +40,4 @@ enum SalaryTypeEnum: string
             self::COMMISSION->value => 'Commission-Based',
         ];
     }
-
-    /**
-     * Get the values of the enum.
-     *
-     * @return array
-     */
-    public static function associativeValues(): array
-    {
-        $data = [];
-        foreach(self::values() as $value){
-            $data[$value] = self::labels()[$value];
-        }
-
-        return $data;
-    }
-
 }

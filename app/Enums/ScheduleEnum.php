@@ -1,9 +1,12 @@
 <?php
 namespace App\Enums;
-use Illuminate\Support\Str;
+
+use App\Traits\HasBasicEnumTraits;
 
 enum ScheduleEnum: string
 {
+    use HasBasicEnumTraits;
+
     case FULL_TIME = 'full_time';
     case PART_TIME = 'part_time';
     case FLEXIBLE = 'flexible';
@@ -36,19 +39,6 @@ enum ScheduleEnum: string
         ];
     }
 
-    /**
-     * Get the values of the enum.
-     *
-     * @return array
-     */
-    public static function associativeValues(): array
-    {
-        $data = [];
-        foreach(self::values() as $value){
-            $data[$value] = self::labels()[$value];
-        }
 
-        return $data;
-    }
 
 }

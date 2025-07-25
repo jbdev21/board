@@ -70,16 +70,16 @@ class PositionResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('status')->formatStateUsing(fn (string $state): string => PositionStatusEnum::labels()[$state]),
+                Tables\Columns\TextColumn::make('status')->formatStateUsing(fn ($state) => $state->label()),
                 Tables\Columns\TextColumn::make('title'),
                 Tables\Columns\TextColumn::make('company'),
-                Tables\Columns\TextColumn::make('employment_type')->formatStateUsing(fn (string $state): string => EmploymentTypeEnum::labels()[$state]),
+                Tables\Columns\TextColumn::make('employment_type')->formatStateUsing(fn ($state) => $state->label()),
             ])
             ->filters([
                 SelectFilter::make('status')
                     ->options(PositionStatusEnum::associativeValues()),
                 SelectFilter::make('employment_type')
-                    ->options(EmploymentTypeEnum::associativeValues())
+                    ->options(PositionStatusEnum::associativeValues())
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
